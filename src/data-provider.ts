@@ -21,12 +21,7 @@ import {
   UpdateParams,
   UpdateResult,
 } from 'ra-core';
-
-type ValidationErrors = {
-  constraint: string;
-  message: string;
-  property: string;
-};
+import { DataProviderError } from './error';
 
 type FetchResponse = {
   ok: boolean;
@@ -58,15 +53,6 @@ type Fetch = (
 type DataProviderOptions = {
   fetch?: Fetch;
 };
-
-export class InvalidResponseError extends Error {
-  errors?: ValidationErrors[];
-
-  constructor(statusCode: number, errors?: ValidationErrors[]) {
-    super(`Invalid response: ${statusCode}`);
-    this.errors = errors;
-  }
-}
 
 const stringifyQuery = (queryParameters: any) =>
   qs.stringify(queryParameters, {
@@ -145,7 +131,7 @@ const getJsonResponse = async (res: {
   const data = await res.json();
 
   if (res.status >= 400) {
-    throw new InvalidResponseError(res.status, data.errors);
+    throw new DataProviderError(res.status, data.errors);
   }
 
   return data;
@@ -312,7 +298,7 @@ export const createDataProvider = (
       });
 
       if (res.status >= 400) {
-        throw new InvalidResponseError(res.status);
+        throw new DataProviderError(res.status);
       }
 
       return { data: params.ids };
