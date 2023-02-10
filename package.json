@@ -1,6 +1,7 @@
 {
   "name": "@jambff/ra-data-provider",
   "version": "1.0.0",
+  "description": "A data provider for React Admin that integrates with JamBFF APIs.",
   "author": "Alex Mendes",
   "license": "MIT",
   "main": "dist/index.js",
