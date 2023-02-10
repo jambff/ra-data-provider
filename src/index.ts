@@ -1,2 +1,2 @@
 export { createDataProvider } from './data-provider';
-export { DataProviderError } from './error';
+export { DataProviderError, isDataProviderError } from './error';
