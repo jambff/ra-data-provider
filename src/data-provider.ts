@@ -116,7 +116,7 @@ const getListQuery = ({
   query.filter = Object.entries(filters).reduce(
     (acc, [key, value]) => ({
       ...acc,
-      [key]: `equals:${value}`,
+      [key]: value,
     }),
     {},
   );
@@ -202,7 +202,7 @@ export const createDataProvider = (
       const listQuery = getListQuery(params);
 
       if (params.target) {
-        params.filter[params.target] = `equals:${params.id}`;
+        params.filter[params.target] = params.id;
       }
 
       url.search = stringifyQuery(listQuery);

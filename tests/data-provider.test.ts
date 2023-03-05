@@ -40,7 +40,7 @@ describe('Data Provider', () => {
       const result = await dataProvider.getList('resource', {
         pagination: { page: 1, perPage: 25 },
         sort: { field: 'somefield', order: 'asc' },
-        filter: {},
+        filter: { id: 1 },
       });
 
       expect(result).toEqual({
@@ -50,7 +50,7 @@ describe('Data Provider', () => {
 
       expect(unfetch).toHaveBeenCalledTimes(1);
       expect(unfetch).toHaveBeenCalledWith(
-        'http://api.com/resource?limit=25&offset=0&sort[somefield]=asc',
+        'http://api.com/resource?limit=25&offset=0&sort[somefield]=asc&filter[id]=1',
       );
     });
   });
@@ -105,13 +105,13 @@ describe('Data Provider', () => {
         id: 1,
         pagination: { page: 1, perPage: 25 },
         sort: { field: 'somefield', order: 'asc' },
-        filter: {},
+        filter: { id: 1 },
       });
 
       expect(result).toEqual({ data: [{ title: 'Item one' }], total: 1 });
       expect(unfetch).toHaveBeenCalledTimes(1);
       expect(unfetch).toHaveBeenCalledWith(
-        'http://api.com/resource?limit=25&offset=0&sort[somefield]=asc',
+        'http://api.com/resource?limit=25&offset=0&sort[somefield]=asc&filter[id]=1',
       );
     });
   });
